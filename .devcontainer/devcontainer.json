@@ -6,16 +6,13 @@
         "extensions": [
           "dbaeumer.vscode-eslint",
           "esbenp.prettier-vscode",
-          "vscode-icons-team.vscode-icons",
-          "donjayamanne.githistory",
-          "eamodio.gitlens",
           "visualstudioexptteam.vscodeintellicode",
           "christian-kohler.path-intellisense",
           "christian-kohler.npm-intellisense",
           "aaron-bond.better-comments",
           "wix.vscode-import-cost",
           "cipchk.cssrem",
-          "alexkrechik.cucumberautocomplete"
+          "golang.go"
         ]
       }
     },
