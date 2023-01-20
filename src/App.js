@@ -1,14 +1,28 @@
+import { useCallback, useEffect, useState } from "react";
+
 const App = () => {
+  const [book, setBook] = useState(null);
+
+  const getBookAPI = useCallback(async () => {
+    let response = await fetch('/book')
+    response = await response.json();
+    setBook(response);
+  }, [])
+
+  useEffect(() => {
+    getBookAPI()
+  }, [getBookAPI])
+
   return (
     <div>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
+      <h1>This is a test</h1>
+      {book != null ? 
+        <div>
+          <div>{book.title}</div>
+          <div>{book.author}</div>
+          <div>{book.pages}</div>
+        </div>
+        : null}
     </div>
   );
 };
