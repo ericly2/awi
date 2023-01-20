@@ -7,21 +7,26 @@ import (
 	"net/http"
 )
 
+const PORT = 5000
+
+var SERVER_URL = fmt.Sprintf("localhost:%d", PORT)
+
 type Book struct {
 	Title  string `json:"title"`
 	Author string `json:"author"`
 	Pages  int    `json:"pages"`
 }
 
-func Home(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "localhost:5000 up and running")
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 }
 
-func Hello(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello"))
+func Home(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Server is running on %s", SERVER_URL)
 }
 
 func GetBook(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	w.Header().Set("Content-Type", "application/json")
 	book := Book{
 		Title:  "The Gunslinger",
@@ -33,8 +38,7 @@ func GetBook(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", Home)
-	http.HandleFunc("/hello", Hello)
 	http.HandleFunc("/book", GetBook)
-	fmt.Println("Starting the server on localhost:5000")
+	fmt.Printf("Starting the server on %s\n", SERVER_URL)
 	log.Fatal(http.ListenAndServe(":5000", nil))
 }
